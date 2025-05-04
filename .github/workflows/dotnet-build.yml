@@ -26,12 +26,10 @@ jobs:
             - name: Compilar o webapp
               run: dotnet build **/*.csproj --no-restore
 
-            - name: Rodar o wepapp
-              run: dotnet run --project **/*.csproj
     echo:
         runs-on: ubuntu-latest
         needs: build
 
         steps:
-            - name: Webapp rodou com sucesso
-              run: echo "Webapp rodou com sucesso"
+            - name: Webapp copilado com sucesso
+              run: echo "Webapp copilado com sucesso"

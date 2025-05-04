@@ -1,0 +1,37 @@
+name: Workflow com Push e de hora em hora
+
+on:
+    push:
+        branches:
+            - 'main'
+    schedule:
+        - cron: '0 * * * *'
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Setup .NET
+              uses: actions/setup-dotnet@v3
+              with:
+                    dotnet-version: '8.x'
+
+            - name: Baixar as dependências
+              run: dotnet restore **/*.csproj
+
+            - name: Compilar o webapp
+              run: dotnet build **/*.csproj --no-restore
+
+            - name: Rodar o wepapp
+              run: dotnet run --project **/*.csproj
+    echo:
+        runs-on: ubuntu-latest
+        needs: build
+
+        steps:
+            - name: Webapp rodou com sucesso
+              run: echo "Webapp rodou com sucesso"
